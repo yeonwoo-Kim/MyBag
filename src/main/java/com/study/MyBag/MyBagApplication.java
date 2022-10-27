@@ -9,5 +9,4 @@ public class MyBagApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MyBagApplication.class, args);
 	}
-
 }
