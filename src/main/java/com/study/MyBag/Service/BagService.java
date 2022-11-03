@@ -10,6 +10,9 @@ import java.util.Date;
 public class BagService {
 
 
+    /*
+    만 나이 계산
+     */
     public int age() {
         int age = 0;
         String id = "19980915"; // 주민번호라고 치자.
@@ -28,5 +31,4 @@ public class BagService {
 
         return age;
     }
-
 }
