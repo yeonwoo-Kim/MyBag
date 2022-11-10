@@ -39,4 +39,11 @@ public class BagController {
         System.out.println(webVersionInfo);
     }
 
+    @GetMapping("uniqueId")
+    public String uniqueId() {
+        String uId = "";
+        String carNo = "12가3456"; // 차량번호 라고 치자.
+        uId = bagService.uniqueId(carNo);
+        return uId;
+    }
 }
