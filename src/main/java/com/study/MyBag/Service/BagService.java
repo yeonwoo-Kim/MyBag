@@ -4,8 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 @Service
 public class BagService {
@@ -87,5 +86,41 @@ public class BagService {
         // ----
         String s = carNo + "은 " + date.getYear() + "년(" + nostr1 + ") " + date.getMonthValue() + "월(" + nostr2 + ")에 " + count + "번 이용함";
         return "ID: "+no + " / " + s;
+    }
+
+    /*
+    추첨 뽑기
+     */
+    public ArrayList<Integer> raffle(ArrayList<Integer> arr, int count) {
+        /*
+        신청자 목록 : arr
+        추첨할 수   : count
+
+        1. 원활한 조회, 삭제를 위해 arr(신청자 목록)를 LinkedList로 바꾼다
+        2. 0부터 arr길이 사이의 랜덤 정수를 뽑아 index로 지정한다.
+        3. applyList에서 랜덤으로 나온 index의 값을 raffleList에 넣는다.
+        4. 중복으로 뽑히는 것을 방지하기 위해 해당 index의 값을 삭제한다.
+        5. cnt를 -1한다.
+        6. count만큼 추첨 후 반복문을 빠져나온다.
+         */
+        LinkedList<Integer> applyList = new LinkedList<>(); // 추첨을 뽑을 신청자 리스트
+        ArrayList<Integer> raffleList = new ArrayList<>(); // 당첨자 리스트
+        Random random = new Random();
+
+        for (int i : arr) {
+            applyList.add(i);
+        }
+
+        int cnt = arr.size();
+
+        for (int j = 0; j < count; j++) {
+            int index = random.nextInt(cnt); // 랜덤으로 선택할 index
+            raffleList.add(applyList.get(index)); // 신청자 리스트에서 랜덤으로 나온 index의 값을 get한 후, 당첨자 리스트에 추가
+            applyList.remove(index); // 선택된 index의 값은 삭제
+            cnt--;
+        }
+
+        return raffleList;
+
     }
 }
